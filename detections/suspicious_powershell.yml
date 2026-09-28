@@ -1,0 +1,16 @@
+title: Suspicious Encoded or Hidden PowerShell Execution
+id: a1b2c3d4-e5f6-7890-abcd-ef0123456789
+status: experimental
+description: Detects PowerShell execution utilizing encoded commands or hidden windows.
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        Image|endswith: '\powershell.exe'
+        CommandLine|contains:
+            - '-EncodedCommand'
+            - '-Enc '
+            - '-WindowStyle Hidden'
+    condition: selection
+level: high
